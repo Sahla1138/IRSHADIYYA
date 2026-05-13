@@ -8,6 +8,11 @@ import {Users,
    CheckCircle,
     GraduationCap,
    } from "lucide-react";
+   import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 
 function Counter({ end, suffix }) {
@@ -484,43 +489,63 @@ const counters = [
       </div>
     </section>
      <section className="py-10 bg-gray-50">
-    <div className="max-w-7xl mx-auto px-4">
+  <div className="max-w-7xl mx-auto px-4">
 
-       
+    <Swiper
+      modules={[Autoplay, Pagination]}
+      spaceBetween={25}
+      slidesPerView={1}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
+      pagination={{ clickable: true }}
+      breakpoints={{
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      }}
+      className="pb-12"
+    >
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-6">
-          
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl overflow-hidden  hover:bg-[#8c8020] hover:animate-[zoomIn_1s_ease-out] shadow-md hover:shadow-xl transition duration-300"
-            >
-              
+      {data.map((item, index) => (
+        <SwiperSlide key={index}>
+
+          <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-500 group">
+
+            {/* Image */}
+            <div className="overflow-hidden">
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-full h-52 object-cover"
+                className="w-full h-56 object-cover group-hover:scale-105 transition duration-500"
               />
-
-              {/* Content */}
-              <div className="p-5 ">
-                
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 leading-snug">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {item.description}
-                </p>
-
-              </div>
             </div>
-          ))}
 
-        </div>
+            {/* Content */}
+            <div className="p-6 min-h-56 border-b-4 border-[#8c8020] bg-[#f5f5f5] group-hover:bg-[#8c8020] transition duration-500">
 
-      </div>         
-    </section>
+              <h3 className="text-2xl font-semibold text-gray-800 group-hover:text-white mb-4 transition duration-500">
+                {item.title}
+              </h3>
+
+              <p className="text-gray-600 group-hover:text-gray-100 leading-relaxed transition duration-500">
+                {item.description}
+              </p>
+
+            </div>
+          </div>
+
+        </SwiperSlide>
+      ))}
+
+    </Swiper>
+
+  </div>
+</section>
      <section className="py-16 bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4">
         
